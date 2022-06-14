@@ -2,7 +2,7 @@ import { memo, useEffect } from "react"
 import Item from "./Item"
 
 
-const ItemList = memo(({users}) => {
+const ItemList = memo(({users, handleDelete}) => {
 
     useEffect(() => {
         // console.log('ItemList: useEffect')
@@ -13,6 +13,7 @@ const ItemList = memo(({users}) => {
             {users.map(user => <Item 
                                     key={user.id} 
                                     {...user}
+                                    handleDelete={handleDelete}
                                 />
             )}
         </ul>

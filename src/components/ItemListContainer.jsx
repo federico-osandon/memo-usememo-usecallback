@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react"
+import { useCallback, useEffect, useMemo, useState } from "react"
 import { arrayUsers } from "../helpers/arrayUsers"
 import ItemList from "./ItemList"
 
@@ -27,11 +27,22 @@ const ItemListContainer = () => {
         setSearch(text)
     }
     const usuariosFiltrados = useMemo(() => users.filter(user => {
-        console.log('proceso de filtrado')
+        // console.log('proceso de filtrado')
         return user.name.toLowerCase().includes(search.toLowerCase())
     }), [users, search])
 
-    // const usariosFiltrados = 
+    const handleDelete = useCallback((id) => {
+        setUsers(users.filter(user => user.id !== id))
+    }, [users])
+
+    const printUsers = useCallback(() => {
+        // console.log(users)
+        console.log(`render usuarios: `, users)
+    },[users])
+
+    useEffect(() => {
+        printUsers()
+    }, [users, printUsers])
 
     return (
         <>
@@ -45,7 +56,10 @@ const ItemListContainer = () => {
             />
             <button onClick={handleAgregar}>agregar</button>
             <button onClick={handleSearch}>buscar</button>
-            <ItemList users = {usuariosFiltrados} />
+            <ItemList 
+                users={usuariosFiltrados} 
+                handleDelete={handleDelete}
+            />
         </>
     )
 }
