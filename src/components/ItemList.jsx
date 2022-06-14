@@ -5,7 +5,7 @@ import Item from "./Item"
 const ItemList = memo(({users}) => {
 
     useEffect(() => {
-        console.log('ItemList: useEffect')
+        // console.log('ItemList: useEffect')
     })
 
     return (

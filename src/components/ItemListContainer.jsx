@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useEffect, useMemo, useState } from "react"
 import { arrayUsers } from "../helpers/arrayUsers"
 import ItemList from "./ItemList"
 
@@ -6,9 +6,10 @@ const ItemListContainer = () => {
     const [bool, setBool] = useState(true)
     const [users, setUsers] = useState(arrayUsers)
     const [text, setText] = useState('')
+    const [search, setSearch] = useState('')
 
     useEffect(() => {
-        console.log('ItemListContainer: useEffect')
+        // console.log('ItemListContainer: useEffect')
     })
 
     const handleChange = (e) => {
@@ -22,7 +23,15 @@ const ItemListContainer = () => {
         ])
     }
 
-    // console.log(text)
+    const handleSearch = () => {
+        setSearch(text)
+    }
+    const usuariosFiltrados = useMemo(() => users.filter(user => {
+        console.log('proceso de filtrado')
+        return user.name.toLowerCase().includes(search.toLowerCase())
+    }), [users, search])
+
+    // const usariosFiltrados = 
 
     return (
         <>
@@ -35,7 +44,8 @@ const ItemListContainer = () => {
                 onChange={handleChange}
             />
             <button onClick={handleAgregar}>agregar</button>
-            <ItemList users = {users} />
+            <button onClick={handleSearch}>buscar</button>
+            <ItemList users = {usuariosFiltrados} />
         </>
     )
 }

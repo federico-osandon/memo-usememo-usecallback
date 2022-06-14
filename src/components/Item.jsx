@@ -4,7 +4,7 @@ import { memo, useEffect } from "react"
 const Item = memo(({id, name}) => {
 
     useEffect(() => {
-        console.log('Item: useEffect')
+        // console.log('Item: useEffect')
     })
 
     return (
